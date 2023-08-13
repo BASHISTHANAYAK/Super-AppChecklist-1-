@@ -15,12 +15,13 @@ function RightSide() {
     CheckBox: false,
   });
 
+  //state for check box
   const [checkBox, setCheckBox] = useState(false);
 
+  //inputs onChange function
   function BoxInput(event) {
     let name = event.target.name;
     let value = event.target.value;
-    // console.log(value);
     setInputs(function (preValue) {
       return { ...preValue, [name]: value };
     });
@@ -29,15 +30,18 @@ function RightSide() {
     });
   }
 
+  //checkBox onClick function
   function ClkCheckBox() {
     setCheckBox(function (pre) {
       return !pre;
     });
   }
 
+  //Form submit function
   function SubmitForm(event) {
     event.preventDefault();
 
+    //checking conditions
     if (
       inputs.Name.length >= 1 &&
       inputs.UserName.length >= 1 &&
