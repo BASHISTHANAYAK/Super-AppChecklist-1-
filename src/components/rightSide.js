@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+
 
 function RightSide() {
+   const navigate = useNavigate();
   const [inputs, setInputs] = useState({
     Name: '',
     UserName: '',
@@ -40,7 +44,7 @@ function RightSide() {
   //Form submit function
   function SubmitForm(event) {
     event.preventDefault();
-
+   
     //checking conditions
     if (
       inputs.Name.length >= 1 &&
@@ -69,6 +73,8 @@ function RightSide() {
       };
 
       localStorage.setItem('formData', JSON.stringify(formData));
+      navigate('/ChoosePage');
+     
     } else {
       if (inputs.Name.length < 1) {
         console.log('empty Name');

@@ -1,12 +1,17 @@
 import React from 'react';
-import LeftSide from './components/leftside';
-import RightSide from './components/rightSide';
+import SignUp from './components/SignUp';
+import ChoosePage from './components/ChoosePage';
+import AcccountPage from "./components/AccountPage"
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 function App() {
   return (
-    <div className="container">
-      <LeftSide />
-      <RightSide />
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<SignUp />} />
+        <Route path="/ChoosePage" element={<ChoosePage />} />
+        <Route path="/AcccountPage" element={<AcccountPage />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 export default App;
