@@ -1,7 +1,7 @@
 import React from 'react';
 import SignUp from './components/SignUp';
 import ChoosePage from './components/ChoosePage';
-import AcccountPage from "./components/AccountPage"
+import AcccountPage from "./components/Page3/AccountPage"
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 function App() {
   return (
