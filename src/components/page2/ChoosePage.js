@@ -23,7 +23,7 @@ function HomePage() {
 
   useEffect(() => {
     updateImageData();
-  },[]);
+  },);
   // Clicking img boxes function
   function ClickImgBox(id, BoxName) {
     setImageData((predata) => {

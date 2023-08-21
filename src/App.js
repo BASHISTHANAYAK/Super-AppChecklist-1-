@@ -1,6 +1,6 @@
 import React from 'react';
-import SignUp from './components/SignUp';
-import ChoosePage from './components/ChoosePage';
+import SignUp from './components/page1/SignUp';
+import ChoosePage from './components/page2/ChoosePage';
 import AcccountPage from "./components/Page3/AccountPage"
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 function App() {

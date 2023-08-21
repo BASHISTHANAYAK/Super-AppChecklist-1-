@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import '../Page3/AccountPage.css';
-import ProfileImage from './ProfileImage.png';
+import ProfileImage from '../Images/ProfileImage.png';
 
 let Selectedcategory = JSON.parse(localStorage.getItem('storedNames'));
 let profileDetails = JSON.parse(localStorage.getItem('formData'));
 
-//sending the selected box names
 function Categorytext() {
   return Selectedcategory.map((elm) => {
     return (
@@ -16,75 +15,91 @@ function Categorytext() {
   });
 }
 
-//exports function
 function Account() {
   const [icon, setIcon] = useState(null);
-  const [News, setnews] = useState(null);
-  //calling weather Api
+  const [News, setNews] = useState('loading');
+  const [latitude, setLatitude] = useState(null);
+  const [longitude, setLongitude] = useState(null);
+  const [amPm, setAmPm] = useState('');
+  const [hours, setHours] = useState('');
+  const [minutes, setMinutes] = useState('');
 
   useEffect(() => {
-    const url =
-      'https://api.openweathermap.org/data/2.5/weather?lat=12.973111&lon=77.585677&appid=1e25d35247669a468d173cd98f2dd82f&units=metric';
+          if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+              (position) => {
+                console.log(position.coords);
+                setLatitude(position.coords.latitude);
+                setLongitude(position.coords.longitude);
+              },
+              (error) => {
+                console.error('Error getting geolocation:', error);
+              }
+            );
+          }
 
-    const fetchWeatherIcon = async () => {
-      try {
-        let res = await fetch(url);
-        let data = await res.json();
-        //   let weatherIcon = data.weather[0].icon;
-        console.log(data);
-        setIcon(() => {
-          return data;
-        });
-      } catch (error) {
-        console.log('error', error);
+    const fetchWeatherData = async () => {
+      if (latitude !== null && longitude !== null) {
+        const apiKey = '1e25d35247669a468d173cd98f2dd82f';
+        const url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`;
+
+        try {
+          const response = await fetch(url);
+          const data = await response.json();
+          setIcon(data);
+        } catch (error) {
+          console.error('Error fetching weather data:', error);
+        }
       }
     };
 
-    fetchWeatherIcon();
+    fetchWeatherData();
 
-    //Calling news api
-    let RandomNumber = Math.floor(Math.random() * 100) + 1;
-    // console.log(RandomNumber);
-    let NewsApi =
-      'https://newsapi.org/v2/everything?q=tesla&from=2023-07-20&sortBy=publishedAt&apiKey=281de765aa6944a3b86daac44c9632b4';
-
-    let NewsApiFunction = async () => {
+    const fetchNewsData = async () => {
       try {
+        let RandomNumber = Math.floor(Math.random() * 100) + 1;
+        let NewsApi =
+          'https://newsapi.org/v2/everything?domains=wsj.com&apiKey=5bd0e4fdf5d64d48a4c2ef85d7ed6cb9';
         let res = await fetch(NewsApi);
         let data = await res.json();
-        //collecting News array
         let datArray = data.articles[RandomNumber];
-        // console.log(datArray);
-        setnews(() => {
-          return datArray;
-        });
-      } catch {
-        console.log('Error');
+        setNews(datArray);
+      } catch (error) {
+        console.error('Error fetching news data:', error);
       }
     };
 
-    NewsApiFunction();
-  }, []);
+    fetchNewsData();
+
+    const updateTime = () => {
+      const now = new Date();
+      let hours = now.getHours();
+      let minutes = now.getMinutes();
+      let amPm = hours >= 12 ? 'PM' : 'AM';
+
+      hours = hours % 12;
+      hours = hours ? hours : 12;
+
+      if (minutes < 10) {
+        minutes = '0' + minutes;
+      }
+
+      setAmPm(amPm);
+      setHours(hours);
+      setMinutes(minutes);
+    };
+
+    updateTime();
+
+    const intervalId = setInterval(updateTime, 10000);
+
+    return () => clearInterval(intervalId);
+  }, [latitude, longitude]);
 
   let date = new Date();
   let day = date.getDate();
   let month = date.getMonth() + 1;
   let year = date.getFullYear();
-
-  let hours = date.getHours();
-  let minutes = date.getMinutes();
-  let amPm = hours >= 12 ? 'PM' : 'AM';
-
-  hours = hours % 12;
-  hours = hours ? hours : 12;
-
-  if (minutes < 10) {
-    minutes = '0' + minutes;
-  }
-  if (hours < 10) {
-    hours = '0' + hours;
-  }
-
   return (
     <div className="PG3Container">
       <div className="Profile--Weather--Part">
@@ -92,7 +107,7 @@ function Account() {
           <img src={ProfileImage} alt="ProfileImage" />
           <div className="details--AND--categories">
             <p>{profileDetails.Name}</p>
-            <p className='UserEmail'>{profileDetails.Email}</p>
+            <p className="UserEmail">{profileDetails.Email}</p>
             <p className="User--Name">{profileDetails.UserName}</p>
             {Categorytext()}
           </div>
@@ -116,7 +131,7 @@ function Account() {
                 {icon && `${icon.weather[0].main}`}
               </p>
             </div>
-            <p className='Weather--divider'></p>
+            <p className="Weather--divider"></p>
             <div className="celcius--div">
               <p className="Celcius--text">
                 {icon && `${Math.floor(icon.main.temp)}`} °C
@@ -132,12 +147,12 @@ function Account() {
                 </div>
               </div>
             </div>
-            <p className='Weather--divider'></p>
+            <p className="Weather--divider"></p>
 
             <div className="Wind--container">
               <div className="wrapping--windLogo--text">
                 <div>
-                  <span class="material-symbols-outlined">air</span>
+                  <span className="material-symbols-outlined">air</span>
                 </div>
                 <div>
                   <p>
@@ -148,9 +163,11 @@ function Account() {
               </div>
               <div className="wrapping--windLogo--text">
                 <div>
-                  <span class="material-symbols-outlined">humidity_mid</span>
+                  <span className="material-symbols-outlined">
+                    humidity_mid
+                  </span>
                 </div>
-                <div className='Humidity--container'>
+                <div className="Humidity--container">
                   <p>
                     <span> {icon && `${icon.main.humidity}`} %</span>
                     <p>Humidity</p>
@@ -174,9 +191,7 @@ function Account() {
             </span>
           </p>
         </div>
-        <p className="News--text">
-          {News && News.description}
-        </p>
+        <p className="News--text">{News && News.description}</p>
       </div>
     </div>
   );
