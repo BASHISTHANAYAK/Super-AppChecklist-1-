@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import '../Page3/AccountPage.css';
 import ProfileImage from '../Images/ProfileImage.png';
 import Alarmpart from '../alarm/AlarmPart';
+import { useNavigate } from 'react-router-dom';
 let Selectedcategory = JSON.parse(localStorage.getItem('storedNames'));
 let profileDetails = JSON.parse(localStorage.getItem('formData'));
 
@@ -16,6 +17,7 @@ function Categorytext() {
 }
 
 function Account() {
+  let Navigate = useNavigate();
   const [icon, setIcon] = useState(null);
   const [News, setNews] = useState('loading');
   const [latitude, setLatitude] = useState(null);
@@ -57,12 +59,15 @@ function Account() {
 
     const fetchNewsData = async () => {
       try {
-        let RandomNumber = Math.floor(Math.random() * 100) + 1;
         let NewsApi =
           'https://newsapi.org/v2/everything?domains=wsj.com&apiKey=5bd0e4fdf5d64d48a4c2ef85d7ed6cb9';
         let res = await fetch(NewsApi);
         let data = await res.json();
+        let RandomNumber = Math.floor(Math.random() * data.totalResults) + 1;
+        console.log(RandomNumber);
+        console.log(data);
         let datArray = data.articles[RandomNumber];
+        console.log(datArray);
         setNews(datArray);
       } catch (error) {
         console.error('Error fetching news data:', error);
@@ -101,6 +106,10 @@ function Account() {
   function TxtArea(event) {
     let TextAreaInputs = event.target.value;
     localStorage.setItem('TextAreaInputs', TextAreaInputs);
+  }
+
+  function GoToLastPage() {
+    Navigate('/Lastpage');
   }
 
   let date = new Date();
@@ -217,7 +226,9 @@ function Account() {
         </div>
         <p className="News--text">{News && News.description}</p>
       </div>
-      <div className="browse--Button">Browse</div>
+      <div className="browse--Button" onClick={GoToLastPage}>
+        Browse
+      </div>
     </div>
   );
 }
