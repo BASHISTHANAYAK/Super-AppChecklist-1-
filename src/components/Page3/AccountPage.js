@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import '../Page3/AccountPage.css';
 import ProfileImage from '../Images/ProfileImage.png';
-
+import Alarmpart from '../page4/AlarmPart';
 let Selectedcategory = JSON.parse(localStorage.getItem('storedNames'));
 let profileDetails = JSON.parse(localStorage.getItem('formData'));
 
@@ -25,18 +25,18 @@ function Account() {
   const [minutes, setMinutes] = useState('');
 
   useEffect(() => {
-          if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(
-              (position) => {
-                console.log(position.coords);
-                setLatitude(position.coords.latitude);
-                setLongitude(position.coords.longitude);
-              },
-              (error) => {
-                console.error('Error getting geolocation:', error);
-              }
-            );
-          }
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          console.log(position.coords);
+          setLatitude(position.coords.latitude);
+          setLongitude(position.coords.longitude);
+        },
+        (error) => {
+          console.error('Error getting geolocation:', error);
+        }
+      );
+    }
 
     const fetchWeatherData = async () => {
       if (latitude !== null && longitude !== null) {
@@ -102,80 +102,91 @@ function Account() {
   let year = date.getFullYear();
   return (
     <div className="PG3Container">
-      <div className="Profile--Weather--Part">
-        <div className="Only--profile">
-          <img src={ProfileImage} alt="ProfileImage" />
-          <div className="details--AND--categories">
-            <p>{profileDetails.Name}</p>
-            <p className="UserEmail">{profileDetails.Email}</p>
-            <p className="User--Name">{profileDetails.UserName}</p>
-            {Categorytext()}
+      <div className="full--left--part">
+        <div className="Pr--we--notes--parent">
+          <div className="Profile--Weather--Part">
+            <div className="Only--profile">
+              <img src={ProfileImage} alt="ProfileImage" />
+              <div className="details--AND--categories">
+                <p>{profileDetails.Name}</p>
+                <p className="UserEmail">{profileDetails.Email}</p>
+                <p className="User--Name">{profileDetails.UserName}</p>
+                {Categorytext()}
+              </div>
+            </div>
+            <div className="Only--Weather">
+              <div className="Times--area">
+                <span>{`${day}-${month}-${year}`}</span>
+                <span>{`${hours}:${minutes} ${amPm}`}</span>
+              </div>
+              <div className="All--weather--details">
+                <div>
+                  <p>
+                    {icon && (
+                      <img
+                        src={`http://openweathermap.org/img/w/${icon.weather[0].icon}.png`}
+                        alt=""
+                      />
+                    )}
+                  </p>
+                  <p className="weather--condition">
+                    {icon && `${icon.weather[0].main}`}
+                  </p>
+                </div>
+                <p className="Weather--divider"></p>
+                <div className="celcius--div">
+                  <p className="Celcius--text">
+                    {icon && `${Math.floor(icon.main.temp)}`} °C
+                  </p>
+
+                  <div className="PreContainer">
+                    <div className="temp--div">
+                      <i class="fa-solid fa-temperature-half"></i>
+                    </div>
+                    <div className="mbar--div">
+                      {icon && `${icon.main.pressure}`} mbar
+                      <p>Pressure</p>
+                    </div>
+                  </div>
+                </div>
+                <p className="Weather--divider"></p>
+
+                <div className="Wind--container">
+                  <div className="wrapping--windLogo--text">
+                    <div>
+                      <span className="material-symbols-outlined">air</span>
+                    </div>
+                    <div>
+                      <p>
+                        <span>{icon && `${icon.wind.speed}`} km/h</span>
+                        <p>wind</p>
+                      </p>
+                    </div>
+                  </div>
+                  <div className="wrapping--windLogo--text">
+                    <div>
+                      <span className="material-symbols-outlined">
+                        humidity_mid
+                      </span>
+                    </div>
+                    <div className="Humidity--container">
+                      <p>
+                        <span> {icon && `${icon.main.humidity}`} %</span>
+                        <p>Humidity</p>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
+          <textarea name="" id="" cols="30" rows="5"></textarea>
         </div>
-        <div className="Only--Weather">
-          <div className="Times--area">
-            <span>{`${day}-${month}-${year}`}</span>
-            <span>{`${hours}:${minutes} ${amPm}`}</span>
-          </div>
-          <div className="All--weather--details">
-            <div>
-              <p>
-                {icon && (
-                  <img
-                    src={`http://openweathermap.org/img/w/${icon.weather[0].icon}.png`}
-                    alt=""
-                  />
-                )}
-              </p>
-              <p className="weather--condition">
-                {icon && `${icon.weather[0].main}`}
-              </p>
-            </div>
-            <p className="Weather--divider"></p>
-            <div className="celcius--div">
-              <p className="Celcius--text">
-                {icon && `${Math.floor(icon.main.temp)}`} °C
-              </p>
 
-              <div className="PreContainer">
-                <div className="temp--div">
-                  <i class="fa-solid fa-temperature-half"></i>
-                </div>
-                <div className="mbar--div">
-                  {icon && `${icon.main.pressure}`} mbar
-                  <p>Pressure</p>
-                </div>
-              </div>
-            </div>
-            <p className="Weather--divider"></p>
+        {/* ************************************************************* */}
 
-            <div className="Wind--container">
-              <div className="wrapping--windLogo--text">
-                <div>
-                  <span className="material-symbols-outlined">air</span>
-                </div>
-                <div>
-                  <p>
-                    <span>{icon && `${icon.wind.speed}`} km/h</span>
-                    <p>wind</p>
-                  </p>
-                </div>
-              </div>
-              <div className="wrapping--windLogo--text">
-                <div>
-                  <span className="material-symbols-outlined">
-                    humidity_mid
-                  </span>
-                </div>
-                <div className="Humidity--container">
-                  <p>
-                    <span> {icon && `${icon.main.humidity}`} %</span>
-                    <p>Humidity</p>
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div className="alarm">
+          <Alarmpart />
         </div>
       </div>
 
