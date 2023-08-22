@@ -1,14 +1,27 @@
 .PG3Container {
-  /* border: 2px solid red; */
-  width: 75vw;
+  border: 2px solid transparent;
+  width: 70vw;
   height: auto;
-  margin: 1vw auto;
+  margin: 4vh auto;
   display: flex;
   flex-wrap: wrap;
-  padding: 30px;
+  padding: 32px 30px 34px 30px;
   background-color: black;
+  position: relative;
 }
-
+.browse--Button {
+  border: 2px solid transparent;
+  color: white;
+  position: absolute;
+  right: 42px;
+  bottom: 3px;
+  background-color: #148a08;
+  padding: 2px 13px 4px 13px;
+  border-radius: 30px;
+  cursor: pointer;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
 .Profile--Weather--Part {
   /* border: 1px dotted black; */
   width: 55%;
@@ -18,9 +31,9 @@
 
 /* news part */
 .News--Part {
-  border: 1px solid red;
+  /* border: 1px dotted white; */
   width: 30%;
-  height: 80vh;
+  height: 520px;
   margin: auto;
   color: white;
   border-radius: 10px;
@@ -62,7 +75,7 @@
 
 /* ****************** */
 .Only--profile {
-  border: 2px dotted blue;
+  /* border: 2px dotted blue; */
   width: 100%;
   height: auto;
   background-color: #5746ea;
@@ -77,13 +90,13 @@
   margin: auto;
 }
 .Pr--we--notes--parent {
-  border: 3px solid red;
+  /* border: 3px solid red; */
   display: flex;
   width: 98%;
   margin: auto;
 }
 textarea {
-  width: 40%;
+  width: 35%;
   height: 350px;
   background-color: #f1c75b;
   color: black;
@@ -92,15 +105,17 @@ textarea {
   font-size: 20px;
   font-weight: bold;
   overflow: auto;
+  padding: 0px 10px;
 }
+
 .full--left--part {
-  border: 2px solid yellowgreen;
+  /* border: 2px solid yellowgreen; */
   width: 68%;
   height: 100%;
 }
 .details--AND--categories {
-  border: 1px dotted white;
-  width:60%;
+  /* border: 1px dotted white; */
+  width: 60%;
   height: auto;
   margin: auto;
   font-size: 14px;
@@ -154,7 +169,7 @@ textarea {
 }
 
 .All--weather--details {
-  border: 1px dotted red;
+  /* border: 1px dotted red; */
   width: 100%;
   height: auto;
   background-color: #101744;
@@ -178,7 +193,7 @@ textarea {
 .All--weather--details > div:nth-child(1) img {
   width: 80px;
   height: auto;
-  border: 1px solid white;
+  /* border: 1px solid white; */
   display: block;
 }
 .weather--condition {
@@ -217,7 +232,7 @@ textarea {
   font-weight: 540;
 }
 .Wind--container {
-  border: 1px solid white;
+  /* border: 1px solid white; */
   text-align: left;
   font-size: 10px;
 }
@@ -237,23 +252,24 @@ textarea {
   margin-top: -3px;
 }
 .alarm {
-  border: 2px solid blue;
+  /* border: 2px solid blue; */
   width: 98%;
-  height: 150px;
+  height: auto;
   margin: auto;
   color: white;
+  margin-top: 25px;
 }
+
 @media screen and (max-width: 981px) {
   .PG3Container {
     width: 90vw;
-    /* display: block; */
   }
 }
 
-@media screen and (max-width: 658px) {
+@media screen and (max-width: 711px) {
   .PG3Container {
     display: block;
-    padding: 0px;
+    padding-bottom: 30px;
     margin: auto;
   }
   .PG3Container > div {
@@ -266,6 +282,20 @@ textarea {
     width: 90%;
     height: 400px;
     margin-top: 13px;
+  }
+}
+@media screen and (max-width: 538px) {
+  .Pr--we--notes--parent {
+    display: block;
+  }
+  .Pr--we--notes--parent > div {
+    width: 100%;
+  }
+  textarea {
+    width: 90%;
+    display: block;
+    margin: 7px auto;
+    height: 200px;
   }
 }
 

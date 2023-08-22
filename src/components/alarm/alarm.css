@@ -1,0 +1,103 @@
+/* .App {
+    display: flex;
+    justify-content: space-around;
+    font-family: sans-serif;
+    text-align: center;
+    padding-top: 40px;
+  }
+  
+  .time {
+    font-size: 32px;
+  }
+   */
+
+.Entire--container {
+  /* border: 1px solid white; */
+  width: 100%;
+  height: auto;
+  margin: auto;
+  display: flex;
+  background-color: #1e2343;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  border-radius: 10px;
+  align-items: center;
+  padding: 5px 0px;
+}
+.Entire--container > div:nth-child(1) {
+  /* border: 1px solid white; */
+  width: 40%;
+  height: auto;
+}
+.Entire--container > div:nth-child(2) {
+  /* border: 1px solid white; */
+  width: 60%;
+  height: auto;
+}
+.TimeCircle {
+  border: 3px solid white;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin: auto;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.Hr--Mn--Se--container {
+  /* border: 1px solid red; */
+  width: auto;
+  height: auto;
+  color: #767880;
+  display: flex;
+  line-height: 0.4;
+  text-align: center;
+  font-size: 13px;
+}
+.Button {
+  /* border: 1px solid green; */
+  width: 90%;
+  height: auto;
+  color: white;
+  margin: auto;
+  margin: auto;
+}
+.Button > button {
+  min-width:90%;
+  background-color: #ff6a6a;
+  color: white;
+  cursor: pointer;
+  border-radius: 10px;
+  display: block;
+  margin: auto;
+  padding: 2px 0px;
+}
+.Hr--Mn--Se--container > div {
+  /* border: 3px dotted rgb(255, 255, 255); */
+  width:110px;
+  height: auto;
+  /* margin: auto; */
+}
+.dubble--separator {
+  margin: auto;
+}
+.Up--arrow > img {
+  width: 15px;
+  cursor: pointer;
+}
+.Down--arrow > img {
+  width: 15px;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 352px) {
+  .Entire--container {
+    font-size: 10px;
+    display: block;
+  }
+  .Entire--container > div {
+    margin: auto;
+    padding: 2px;
+  }
+}

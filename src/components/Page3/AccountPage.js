@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import '../Page3/AccountPage.css';
 import ProfileImage from '../Images/ProfileImage.png';
-import Alarmpart from '../page4/AlarmPart';
+import Alarmpart from '../alarm/AlarmPart';
 let Selectedcategory = JSON.parse(localStorage.getItem('storedNames'));
 let profileDetails = JSON.parse(localStorage.getItem('formData'));
 
@@ -96,6 +96,13 @@ function Account() {
     return () => clearInterval(intervalId);
   }, [latitude, longitude]);
 
+  //Saving inputs in textarea in local storage
+
+  function TxtArea(event) {
+    let TextAreaInputs = event.target.value;
+    localStorage.setItem('TextAreaInputs', TextAreaInputs);
+  }
+
   let date = new Date();
   let day = date.getDate();
   let month = date.getMonth() + 1;
@@ -180,7 +187,13 @@ function Account() {
               </div>
             </div>
           </div>
-          <textarea name="" id="" cols="30" rows="5"></textarea>
+          <textarea
+            name=""
+            id=""
+            cols="30"
+            rows="4"
+            onChange={TxtArea}
+          ></textarea>
         </div>
 
         {/* ************************************************************* */}
@@ -204,6 +217,7 @@ function Account() {
         </div>
         <p className="News--text">{News && News.description}</p>
       </div>
+      <div className="browse--Button">Browse</div>
     </div>
   );
 }
