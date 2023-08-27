@@ -233,10 +233,7 @@ function Account() {
           {News ? (
             <img src={News.urlToImage} alt="newsImage" />
           ) : (
-            <img
-              src="https://ideateandexecute.com/wp-content/uploads/2013/10/Loading_icon.gif"
-              alt="newsImage"
-            />
+           <p>Loading...</p>
           )}
           <p className="Mountain--And--date">
             <h3>{News && News.title}</h3>
