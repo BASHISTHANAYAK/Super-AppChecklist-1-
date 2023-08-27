@@ -68,7 +68,7 @@ function Account() {
           'https://newsapi.org/v2/everything?domains=wsj.com&apiKey=5bd0e4fdf5d64d48a4c2ef85d7ed6cb9';
         let res = await fetch(NewsApi);
         let data = await res.json();
-        let RandomNumber = Math.floor(Math.random() * 10) + 1;
+        let RandomNumber = Math.floor(Math.random() * 7) + 1;
         console.log(RandomNumber);
         console.log(data);
         let datArray = data.articles[RandomNumber];
