@@ -8,7 +8,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<SignUp />} />
+        <Route path="/SignUp" element={<SignUp />} />
         <Route path="/ChoosePage" element={<ChoosePage />} />
         <Route path="/AcccountPage" element={<AcccountPage />} />
         <Route path="/Lastpage" element={<Lastpage />} />

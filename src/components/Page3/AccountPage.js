@@ -102,7 +102,7 @@ function Account() {
 
     updateTime();
 
-    const intervalId = setInterval(updateTime, 10000);
+    const intervalId = setInterval(updateTime, 60000);
 
     return () => clearInterval(intervalId);
   }, [latitude, longitude]);
