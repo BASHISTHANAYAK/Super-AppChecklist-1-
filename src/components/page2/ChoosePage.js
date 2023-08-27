@@ -22,8 +22,11 @@ function HomePage() {
   }, [imageData]);
 
   useEffect(() => {
+    //removing array when page refresh
+    localStorage.removeItem('storedNames');
     updateImageData();
-  },);
+  }, []);
+
   // Clicking img boxes function
   function ClickImgBox(id, BoxName) {
     setImageData((predata) => {
@@ -106,7 +109,7 @@ function HomePage() {
           <h2>Choose your entertainment category</h2>
           {selectedItem()}
           <p className="requied--sign">
-            <span >
+            <span>
               <img src={requiredSign} alt="" />
             </span>
             <span>Minimum 3 category required</span>

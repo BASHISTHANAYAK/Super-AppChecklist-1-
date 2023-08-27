@@ -3,29 +3,32 @@ import '../Page3/AccountPage.css';
 import ProfileImage from '../Images/ProfileImage.png';
 import Alarmpart from '../alarm/AlarmPart';
 import { useNavigate } from 'react-router-dom';
-let Selectedcategory = JSON.parse(localStorage.getItem('storedNames'));
-let profileDetails = JSON.parse(localStorage.getItem('formData'));
-
-function Categorytext() {
-  return Selectedcategory.map((elm) => {
-    return (
-      <div className="Categorytext" key={Selectedcategory.indexOf(elm)}>
-        {elm}
-      </div>
-    );
-  });
-}
 
 function Account() {
   let Navigate = useNavigate();
   const [icon, setIcon] = useState(null);
-  const [News, setNews] = useState('loading');
+  const [News, setNews] = useState(null);
   const [latitude, setLatitude] = useState(null);
   const [longitude, setLongitude] = useState(null);
   const [amPm, setAmPm] = useState('');
   const [hours, setHours] = useState('');
   const [minutes, setMinutes] = useState('');
 
+  let Selectedcategory = JSON.parse(localStorage.getItem('storedNames'));
+  let profileDetails = JSON.parse(localStorage.getItem('formData'));
+
+  //returning selected Categorytext Buttons
+  function Categorytext() {
+    return Selectedcategory.map((elm) => {
+      return (
+        <div className="Categorytext" key={Selectedcategory.indexOf(elm)}>
+          {elm}
+        </div>
+      );
+    });
+  }
+
+  // Accessing system longitude & latitude from system.
   useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
@@ -40,6 +43,7 @@ function Account() {
       );
     }
 
+    // Getting weather from weather api
     const fetchWeatherData = async () => {
       if (latitude !== null && longitude !== null) {
         const apiKey = '1e25d35247669a468d173cd98f2dd82f';
@@ -57,13 +61,14 @@ function Account() {
 
     fetchWeatherData();
 
+    //Getting news from news api .
     const fetchNewsData = async () => {
       try {
         let NewsApi =
           'https://newsapi.org/v2/everything?domains=wsj.com&apiKey=5bd0e4fdf5d64d48a4c2ef85d7ed6cb9';
         let res = await fetch(NewsApi);
         let data = await res.json();
-        let RandomNumber = Math.floor(Math.random() * data.totalResults) + 1;
+        let RandomNumber = Math.floor(Math.random() * 10) + 1;
         console.log(RandomNumber);
         console.log(data);
         let datArray = data.articles[RandomNumber];
@@ -76,6 +81,7 @@ function Account() {
 
     fetchNewsData();
 
+    //Time update as per conditions
     const updateTime = () => {
       const now = new Date();
       let hours = now.getHours();
@@ -101,17 +107,18 @@ function Account() {
     return () => clearInterval(intervalId);
   }, [latitude, longitude]);
 
-  //Saving inputs in textarea in local storage
-
+  //Saving text areea inputs in local storage
   function TxtArea(event) {
     let TextAreaInputs = event.target.value;
     localStorage.setItem('TextAreaInputs', TextAreaInputs);
   }
 
+  //Click Browse button to go to Next page
   function GoToLastPage() {
     Navigate('/Lastpage');
   }
 
+  //Getting current Date
   let date = new Date();
   let day = date.getDate();
   let month = date.getMonth() + 1;
@@ -121,15 +128,23 @@ function Account() {
       <div className="full--left--part">
         <div className="Pr--we--notes--parent">
           <div className="Profile--Weather--Part">
+            {/* Profile details part */}
             <div className="Only--profile">
               <img src={ProfileImage} alt="ProfileImage" />
               <div className="details--AND--categories">
-                <p>{profileDetails.Name}</p>
-                <p className="UserEmail">{profileDetails.Email}</p>
-                <p className="User--Name">{profileDetails.UserName}</p>
-                {Categorytext()}
+                {profileDetails ? (
+                  <>
+                    <p>{profileDetails.Name}</p>
+                    <p className="UserEmail">{profileDetails.Email}</p>
+                    <p className="User--Name">{profileDetails.UserName}</p>
+                    {Categorytext()}
+                  </>
+                ) : (
+                  <p>Loading profile details...</p>
+                )}
               </div>
             </div>
+            {/* Weather information part */}
             <div className="Only--Weather">
               <div className="Times--area">
                 <span>{`${day}-${month}-${year}`}</span>
@@ -196,6 +211,7 @@ function Account() {
               </div>
             </div>
           </div>
+          {/* textarea Part */}
           <textarea
             name=""
             id=""
@@ -211,10 +227,17 @@ function Account() {
           <Alarmpart />
         </div>
       </div>
-
+      {/* Weather part  */}
       <div className="News--Part">
         <div className="newsImage--dates">
-          {News && <img src={News.urlToImage} alt="newsImage" />}
+          {News ? (
+            <img src={News.urlToImage} alt="newsImage" />
+          ) : (
+            <img
+              src="https://ideateandexecute.com/wp-content/uploads/2013/10/Loading_icon.gif"
+              alt="newsImage"
+            />
+          )}
           <p className="Mountain--And--date">
             <h3>{News && News.title}</h3>
             <span>
@@ -224,8 +247,12 @@ function Account() {
             </span>
           </p>
         </div>
-        <p className="News--text">{News && News.description}</p>
+
+        <p className="News--text">
+          {News ? News.description : 'Loading News details...'}
+        </p>
       </div>
+      {/* Browse button */}
       <div className="browse--Button" onClick={GoToLastPage}>
         Browse
       </div>

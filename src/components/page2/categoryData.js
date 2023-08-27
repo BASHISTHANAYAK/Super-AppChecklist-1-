@@ -23,7 +23,7 @@ let data = [
   },
   {
     Id: 2,
-    BoxName: ' Romance',
+    BoxName: 'Romance',
     BoxImage: RomanceImage,
     value: false,
   },
@@ -35,19 +35,19 @@ let data = [
   },
   {
     Id: 4,
-    BoxName: ' Western',
+    BoxName: 'Western',
     BoxImage: WesternImage,
     value: false,
   },
   {
     Id: 5,
-    BoxName: ' Horror',
+    BoxName: 'Horror',
     BoxImage: HorrorImage,
     value: false,
   },
   {
     Id: 6,
-    BoxName: ' Fantasy',
+    BoxName: 'Fantasy',
     BoxImage: FantasyImage,
     value: false,
   },
@@ -59,7 +59,7 @@ let data = [
   },
   {
     Id: 8,
-    BoxName: ' Fiction',
+    BoxName: 'Fiction',
     BoxImage: FictionImage,
     value: false,
   },

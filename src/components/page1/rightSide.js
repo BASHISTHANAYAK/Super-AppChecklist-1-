@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-
-
 function RightSide() {
-   const navigate = useNavigate();
+  const navigate = useNavigate();
   const [inputs, setInputs] = useState({
     Name: '',
     UserName: '',
@@ -44,13 +42,13 @@ function RightSide() {
   //Form submit function
   function SubmitForm(event) {
     event.preventDefault();
-   
+
     //checking conditions
     if (
       inputs.Name.length >= 1 &&
       inputs.UserName.length >= 1 &&
       inputs.Email.length >= 1 &&
-      inputs.Number.length >= 1 &&
+      inputs.Number.length >= 10 &&
       checkBox === true
     ) {
       console.log(
@@ -74,7 +72,6 @@ function RightSide() {
 
       localStorage.setItem('formData', JSON.stringify(formData));
       navigate('/ChoosePage');
-     
     } else {
       if (inputs.Name.length < 1) {
         console.log('empty Name');
@@ -94,8 +91,8 @@ function RightSide() {
           return { ...preValue, Email: true };
         });
       }
-      if (inputs.Number.length < 1) {
-        console.log('empty Number');
+      if (inputs.Number.length < 10) {
+        console.log('Enter 10 digit Number');
         setValidation(function (preValue) {
           return { ...preValue, Number: true };
         });
@@ -122,7 +119,6 @@ function RightSide() {
           state={validation.Name}
         />
         {validation.Name && <p className="errorMessage">Field is required</p>}
-
         <input
           type="text"
           placeholder="UserName"
@@ -148,9 +144,14 @@ function RightSide() {
           placeholder="Number"
           name="Number"
           value={inputs.Number}
-          onChange={(event) => BoxInput(event)}
+          onChange={(event) => {
+            const inputValue = event.target.value.slice(0, 10);
+            event.target.value = inputValue; // Update the input value
+            BoxInput(event);
+          }}
         />
-        {validation.Number && <p className="errorMessage">Field is required</p>}
+        {validation.Number && <p className="errorMessage">10 digit is required</p>}
+       
 
         <input
           type="checkbox"
