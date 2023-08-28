@@ -19,13 +19,17 @@ function Account() {
 
   //returning selected Categorytext Buttons
   function Categorytext() {
-    return Selectedcategory.map((elm) => {
-      return (
-        <div className="Categorytext" key={Selectedcategory.indexOf(elm)}>
-          {elm}
-        </div>
-      );
-    });
+    if (Selectedcategory && Selectedcategory.length >= 1) {
+      return Selectedcategory.map((elm) => {
+        return (
+          <div className="Categorytext" key={Selectedcategory.indexOf(elm)}>
+            {elm}
+          </div>
+        );
+      });
+    } else {
+      return [];
+    }
   }
 
   // Accessing system longitude & latitude from system.
@@ -64,14 +68,14 @@ function Account() {
     //Getting news from news api .
     const fetchNewsData = async () => {
       try {
-        let NewsApi =
-          'https://newsapi.org/v2/everything?domains=wsj.com&apiKey=5bd0e4fdf5d64d48a4c2ef85d7ed6cb9';
+      
+        let NewsApi = `https://newsdata.io/api/1/news?apikey=pub_28401461dd94bfdcedc24993f9c189fbf55b7&q=weather`;
         let res = await fetch(NewsApi);
         let data = await res.json();
         let RandomNumber = Math.floor(Math.random() * 7) + 1;
         console.log(RandomNumber);
         console.log(data);
-        let datArray = data.articles[RandomNumber];
+        let datArray = data.results[RandomNumber];
         console.log(datArray);
         setNews(datArray);
       } catch (error) {
@@ -155,7 +159,7 @@ function Account() {
                   <p>
                     {icon && (
                       <img
-                        src={`http://openweathermap.org/img/w/${icon.weather[0].icon}.png`}
+                        src={`https://openweathermap.org/img/w/${icon.weather[0].icon}.png`}
                         alt=""
                       />
                     )}
@@ -231,9 +235,9 @@ function Account() {
       <div className="News--Part">
         <div className="newsImage--dates">
           {News ? (
-            <img src={News.urlToImage} alt="newsImage" />
+            <img src={News.image_url} alt="newsImage" />
           ) : (
-           <p>Loading...</p>
+            <p>Loading...</p>
           )}
           <p className="Mountain--And--date">
             <h3>{News && News.title}</h3>

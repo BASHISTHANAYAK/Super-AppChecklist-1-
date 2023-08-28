@@ -15,7 +15,7 @@ function Lastpage() {
     if (selectedNames && selectedNames.length >= 1) {
       async function fetchMoviesByType(movietype) {
         const apiKey = 'b8042e25';
-        const url = `http://www.omdbapi.com/?apikey=${apiKey}&type=movie&s=${movietype}`;
+        const url = `https://www.omdbapi.com/?apikey=${apiKey}&type=movie&s=${movietype}`;
         try {
           const res = await fetch(url);
           const data = await res.json();
